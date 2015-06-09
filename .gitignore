@@ -1,0 +1,11 @@
+/**/node_modules
+/**/.tmp
+/**/bower_components
+**/.classpath
+**/.project
+**/target/
+**/.DS_Store
+**/.settings
+**/.idea
+**/nbactions.xml
+**/bin
