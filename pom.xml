@@ -16,7 +16,6 @@
   <dependencies>
   </dependencies>
   <modules>
-    <module>aparcaba-api</module>
     <module>aparcaba-simulator</module>
   </modules>
 </project>
