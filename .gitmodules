@@ -1,6 +1,0 @@
-[submodule "aparcaba-zpm"]
-	path = aparcaba-zpm
-	url = ssh://55776fcb4382eccb1d000109@zpm-aparcaba.rhcloud.com/~/git/zpm.git/
-[submodule "aparcaba-api"]
-	path = aparcaba-api
-	url = ssh://55776ed15973ca107a000066@api-aparcaba.rhcloud.com/~/git/api.git/

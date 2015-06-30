@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Properties>
+		<Property name="services">target/logs/services.log</Property>
+		<Property name="root">target/logs/root.log</Property>
+	</Properties>
+	<Appenders>
+    	<File name="file_services.log" fileName="${services}">
+    		<PatternLayout>
+    			<Pattern>%d %p %C.%M [%t] %m %ex%n</Pattern>
+    		</PatternLayout>
+    	</File>
+    	<File name="file_root.log" fileName="${root}">
+    		<PatternLayout>
+    			<Pattern>%d %p %C.%M [%t] %m %ex%n</Pattern>
+    		</PatternLayout>
+    	</File>
+    	<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%m%n"/>
+    	</Console>
+    </Appenders>
+    <Loggers>
+ 		<Logger name="api.services" level="DEBUG" additivity="false">
+			<AppenderRef ref="file_services.log" level="DEBUG"/>
+		</Logger>
+    	<Root level="TRACE">
+    		<AppenderRef ref="file_root.log" level="INFO"/>
+    		<AppenderRef ref="STDOUT" level="INFO"/>
+    	</Root>
+    </Loggers>
+</Configuration>
