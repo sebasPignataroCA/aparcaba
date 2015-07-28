@@ -10,6 +10,7 @@ import org.apache.commons.collections.CollectionUtils;
 import ar.org.aparcaba.simulator.utils.ConfigurationManager;
 import ar.org.aparcaba.simulator.value.Comune;
 import ar.org.aparcaba.simulator.value.Sensor;
+import ar.org.aparcaba.simulator.value.TimeLapse;
 
 public class CycleManager {
 
@@ -36,27 +37,28 @@ public class CycleManager {
 
 	private void takeSensors() {
 		for ( Comune comune : config.getComunes() ) {
-			int numberOfSensorsToTake = config.getNumberOfSensorsToTake();
+			TimeLapse currentTimeLapse = comune.getCurrentTimeLapse();
+			int numberOfSensorsToTake = currentTimeLapse.getNumberOfSensorsToTake();
+
 			for ( int i = 0 ; i < numberOfSensorsToTake ; i++ ) {
-				tryToTakeSensor( comune );
+				tryToTakeSensor( comune , currentTimeLapse );
 			}
 		}
 	}
 
-	private void tryToTakeSensor( Comune comune ) {
-		for ( int i = 0 ; i < config.getNumberOfTriesToTakeSensor() ; i++ ) {
+	private void tryToTakeSensor( Comune comune , TimeLapse timeLapse ) {
+		for ( int i = 0 ; i < timeLapse.getNumberOfTriesToTakeSensor() ; i++ ) {
 			Sensor sensor = comune.getRandomSensor();
 			if ( sensorManager.isFree( sensor ) ) {
-				takeSensor( sensor );
+				takeSensor( sensor , timeLapse );
 				return;
 			}
 		}
 	}
 
-	private void takeSensor( Sensor sensor ) {
-		int parkingStayTime = config.getParkingStayTime();
+	private void takeSensor( Sensor sensor , TimeLapse timeLapse ) {
 		sensorManager.take( sensor );
-		setSensorToRelease( sensor , parkingStayTime );
+		setSensorToRelease( sensor , timeLapse.getParkingStayTime() );
 	}
 
 	private void setSensorToRelease( Sensor sensor , int parkingStayTime ) {
