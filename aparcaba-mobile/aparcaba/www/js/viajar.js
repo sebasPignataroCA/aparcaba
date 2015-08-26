@@ -20,7 +20,7 @@ $(document).ready(function(){
 
     console.log(origen, destino)
     var CABA = "Ciudad de Buenos Aires";
-    var dominio = "http://api-aparcaba.rhcloud.com/api-1.0/rest/guidance"
+    var dominio = "http://api-aparcaba.rhcloud.com/rest/guidance"
 
     var url = dominio + "/" + origen + "," + CABA + "/" +  destino + "," + CABA;
 
