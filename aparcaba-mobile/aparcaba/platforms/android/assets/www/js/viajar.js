@@ -20,12 +20,44 @@ $(document).ready(function(){
 
     console.log(origen, destino)
     var CABA = "Ciudad de Buenos Aires";
-    var dominio = "http://api-aparcaba.rhcloud.com/api-1.0/rest/guidance"
+    var dominio = "http://api-aparcaba.rhcloud.com/rest/guidance"
 
     var url = dominio + "/" + origen + "," + CABA + "/" +  destino + "," + CABA;
-
+/*
     $.get(url, function(data){
     	$("#resultados").html(data);
-    })
+    },"jsonp").fail(function() {
+	    alert( "error" );
+	  })
+*/
+
+/*
+var jqxhr = $.getJSON( url, function() {
+  console.log( "success" );
+})
+  .done(function() {
+    console.log( "second success" );
+  })
+  .fail(function() {
+    console.log( "error" );
+  })
+  .always(function() {
+    console.log( "complete" );
+  });
+ 
+// Perform other work here ...
+ 
+// Set another completion function for the request above
+jqxhr.complete(function() {
+  console.log( "second complete" );
+});
+*/
+
+$.ajax({
+  url: url,
+  dataType: 'application/json'
+}).done(function(data){
+	alert('todo bien')
+});
     
 });
