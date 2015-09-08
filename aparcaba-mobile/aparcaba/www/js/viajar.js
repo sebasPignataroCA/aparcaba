@@ -11,64 +11,52 @@ var GetURLParameter = function(sParam) {
     }
 }
 
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('Gmap'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
+  });
+}
+
 
 $(document).ready(function(){
-    console.log($(location).attr('href'))
 
-    var origen = GetURLParameter('origen').replace("+", " ");
-    var destino = GetURLParameter('destino').replace("+", " ");
+  var origen = GetURLParameter('origen').replace("+", " ");
+  var destino = GetURLParameter('destino').replace("+", " ");
 
-    console.log(origen, destino)
-    var CABA = "Ciudad de Buenos Aires";
-    var dominio = "http://api-aparcaba.rhcloud.com/rest/guidance"
+  var CABA = "Ciudad de Buenos Aires";
+  var dominio = "http://api-aparcaba.rhcloud.com/rest/guidance"
+  var radio = "50"
 
-    var url = dominio + "/" + origen + "," + CABA + "/" +  destino + "," + CABA;
-/*
-    $.get(url, function(data){
-    	$("#resultados").html(data);
-    },"jsonp").fail(function() {
-	    alert( "error" );
-	  })
-*/
+  var url = dominio + "/" + origen + "," + CABA + "/" +  destino + "," + CABA + "/" + radio;
 
-/*
-var jqxhr = $.getJSON( url, function() {
-  console.log( "success" );
-})
-  .done(function() {
-    console.log( "second success" );
-  })
-  .fail(function() {
-    console.log( "error" );
-  })
-  .always(function() {
-    console.log( "complete" );
+  var resultado;
+  
+  $.ajax({ 
+    type: "GET",
+    dataType: "json",
+    url: url,
+       
+    crossDomain: true,
+    contentType: "application/javascript; charset=utf-8",
+    success: function(data){
+      $('#desde').text(data.origin);
+      $('#hasta').text(data.destination);
+
+      $.each(data.steps, function(){
+        var latitude = "<label> latitud:" + this.destinationCoordinates.latitude + "  </label>"
+        var longitude = "<label> longitud:" + this.destinationCoordinates.longitude + "</label><br>"
+        $('#pasos').append(latitude + longitude)
+      });
+
+      $('#duration').text(data.totalDuration + " seg");
+
+
+    } 
+     
   });
- 
-// Perform other work here ...
- 
-// Set another completion function for the request above
-jqxhr.complete(function() {
-  console.log( "second complete" );
-});
-*/
 
-	$.ajax({
-		url:url,
-		type:'GET',
-		dataType:'json',
-		error:function(jqXHR,text_status,strError){
-			alert("no connection");
-    },
-    data: {  // the parameters to add to the request
-        format: 'json',
-        action: 'query',
-        titles: 'test'
-    },
-		timeout:60000,
-		success:function(data){
-			alert("todo bien");
-		}
-	});
+  
     
 });
