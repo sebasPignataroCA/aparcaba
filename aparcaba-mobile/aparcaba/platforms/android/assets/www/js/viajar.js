@@ -11,53 +11,87 @@ var GetURLParameter = function(sParam) {
     }
 }
 
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('Gmap'), {
+    center: {lat: -34.6158238, lng: -58.4332985},
+    zoom: 12
+  });  
+}
+
+var onSuccess = function(position) {
+    alert('Latitude: '          + position.coords.latitude          + '\n' +
+          'Longitude: '         + position.coords.longitude         + '\n' +
+          'Altitude: '          + position.coords.altitude          + '\n' +
+          'Accuracy: '          + position.coords.accuracy          + '\n' +
+          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+          'Heading: '           + position.coords.heading           + '\n' +
+          'Speed: '             + position.coords.speed             + '\n' +
+          'Timestamp: '         + position.timestamp                + '\n');
+};
+
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
+
+
+
 
 $(document).ready(function(){
-    console.log($(location).attr('href'))
 
-    var origen = GetURLParameter('origen').replace("+", " ");
-    var destino = GetURLParameter('destino').replace("+", " ");
+  var origen = GetURLParameter('origen').replace("+", " ");
+  var destino = GetURLParameter('destino').replace("+", " ");
 
-    console.log(origen, destino)
-    var CABA = "Ciudad de Buenos Aires";
-    var dominio = "http://api-aparcaba.rhcloud.com/rest/guidance"
+  var CABA = "Ciudad de Buenos Aires";
+  var dominio = "http://api-aparcaba.rhcloud.com/rest/guidance"
+  var radio = "50"
 
-    var url = dominio + "/" + origen + "," + CABA + "/" +  destino + "," + CABA;
-/*
-    $.get(url, function(data){
-    	$("#resultados").html(data);
-    },"jsonp").fail(function() {
-	    alert( "error" );
-	  })
-*/
+  var url = dominio + "/" + origen + "," + CABA + "/" +  destino + "," + CABA + "/" + radio;
 
-/*
-var jqxhr = $.getJSON( url, function() {
-  console.log( "success" );
-})
-  .done(function() {
-    console.log( "second success" );
-  })
-  .fail(function() {
-    console.log( "error" );
-  })
-  .always(function() {
-    console.log( "complete" );
+  var resultado;
+
+  var coordenadas = [];
+
+  navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  
+  $.ajax({ 
+    type: "GET",
+    dataType: "json",
+    url: url,
+       
+    crossDomain: true,
+    contentType: "application/javascript; charset=utf-8",
+    success: function(data){
+      console.log(data);
+
+      coordenadas.push({
+        lat: data.steps[0].originCoordinates.latitude,
+        lng: data.steps[0].originCoordinates.longitude
+      })
+
+      $.each(data.steps, function(){
+        coordenadas.push({
+          lat: this.destinationCoordinates.latitude,
+          lng: this.destinationCoordinates.longitude
+        })
+      });
+
+      var camino = new google.maps.Polyline({
+        path: coordenadas,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+
+      camino.setMap(map);
+    } 
+     
   });
- 
-// Perform other work here ...
- 
-// Set another completion function for the request above
-jqxhr.complete(function() {
-  console.log( "second complete" );
-});
-*/
 
-$.ajax({
-  url: url,
-  dataType: 'application/json'
-}).done(function(data){
-	alert('todo bien')
-});
+  
     
 });

@@ -49,10 +49,8 @@ var app = {
 };
 
 $(document).ready(function(){
-    console.log("empezo")
 
     $("#ingresar").click(function(){
-        console.log("click");
     });
 
 });

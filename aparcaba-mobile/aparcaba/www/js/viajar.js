@@ -14,10 +14,30 @@ var GetURLParameter = function(sParam) {
 var map;
 function initMap() {
   map = new google.maps.Map(document.getElementById('Gmap'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
-  });
+    center: {lat: -34.6158238, lng: -58.4332985},
+    zoom: 12
+  });  
 }
+
+var onSuccess = function(position) {
+    alert('Latitude: '          + position.coords.latitude          + '\n' +
+          'Longitude: '         + position.coords.longitude         + '\n' +
+          'Altitude: '          + position.coords.altitude          + '\n' +
+          'Accuracy: '          + position.coords.accuracy          + '\n' +
+          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+          'Heading: '           + position.coords.heading           + '\n' +
+          'Speed: '             + position.coords.speed             + '\n' +
+          'Timestamp: '         + position.timestamp                + '\n');
+};
+
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
+
+
 
 
 $(document).ready(function(){
@@ -32,6 +52,10 @@ $(document).ready(function(){
   var url = dominio + "/" + origen + "," + CABA + "/" +  destino + "," + CABA + "/" + radio;
 
   var resultado;
+
+  var coordenadas = [];
+
+  navigator.geolocation.getCurrentPosition(onSuccess, onError);
   
   $.ajax({ 
     type: "GET",
@@ -41,18 +65,29 @@ $(document).ready(function(){
     crossDomain: true,
     contentType: "application/javascript; charset=utf-8",
     success: function(data){
-      $('#desde').text(data.origin);
-      $('#hasta').text(data.destination);
+      console.log(data);
+
+      coordenadas.push({
+        lat: data.steps[0].originCoordinates.latitude,
+        lng: data.steps[0].originCoordinates.longitude
+      })
 
       $.each(data.steps, function(){
-        var latitude = "<label> latitud:" + this.destinationCoordinates.latitude + "  </label>"
-        var longitude = "<label> longitud:" + this.destinationCoordinates.longitude + "</label><br>"
-        $('#pasos').append(latitude + longitude)
+        coordenadas.push({
+          lat: this.destinationCoordinates.latitude,
+          lng: this.destinationCoordinates.longitude
+        })
       });
 
-      $('#duration').text(data.totalDuration + " seg");
+      var camino = new google.maps.Polyline({
+        path: coordenadas,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
 
-
+      camino.setMap(map);
     } 
      
   });

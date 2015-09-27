@@ -15,25 +15,28 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
+        #8eb5d5;
+        #0c4370;
  */
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-color:#8eb5d5;
+    background-image:linear-gradient(top, #8eb5d5 0%, #7e9db7 51%);
+    background-image:-webkit-linear-gradient(top, #8eb5d5 0%, #7e9db7 51%);
+    background-image:-ms-linear-gradient(top, #8eb5d5 0%, #7e9db7 51%);
     background-image:-webkit-gradient(
         linear,
         left top,
         left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
+        color-stop(0, #8eb5d5),
+        color-stop(0.51, #7e9db7)
     );
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
@@ -112,4 +115,78 @@ h1 {
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
+}
+
+.btn-xl {
+    padding: 14px 24px;
+    font-size: 5em;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    margin-top: 50px;
+}
+
+.btn-negative {
+    color: #fff;
+    background-color: #333;
+    border-color: #333;
+}
+
+.input-xl {
+    height: 100px;
+    font-size: 5em;
+}
+
+button.navbar-toggle {
+    display: block;
+    float: left;
+}
+
+button.btn:hover, a.btn:hover {
+    color: black;
+}
+
+.navbar {
+    min-height: 100px;
+    margin-bottom: 0px;
+}
+
+.navbar-toggle .icon-bar {
+    width: 40px;
+    height: 10px;
+    border-radius: 10px;
+}
+
+.navbar-toggle {
+    margin-top: 20px;
+}
+
+.navbar-brand {
+    padding: 42px 50px;
+    font-size: 4.5em;
+}
+
+#menu-container input {
+    margin-top: 30px;
+}
+
+#estacionar-link {
+    margin: 100px 0;
+}
+
+#viajar-link {
+    margin: 200px 0;
+} 
+
+.map-container {
+    width: 100%
+}
+
+#config-icon {
+    font-size: 5em;
+    float: right;
+    color: white;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 12px;
 }

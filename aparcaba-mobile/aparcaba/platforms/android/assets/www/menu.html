@@ -11,21 +11,41 @@
         <title>APARCABA - Menu</title>
     </head>
     <body>
-        <div class="container">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar">
+                    <div class="navbar-header navbar-left" style="float: left;">
+                      <a class="navbar-brand" href="opciones.html">APARCABA</a>
+                    </div>
+                    <div class="navbar-nav navbar-right">
+                        <a href="config.html">
+                            <span id="config-icon" class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <div id="menu-container" class="container">
             <div class="row">
                 <form action="viajar.html">
-                    <div class="form-group col-xs-8 col-xs-offset-2">
-                        <input class="form-control" type="text" placeholder="origen" name="origen">
-                        <input class="form-control" type="text" placeholder="destino" name="destino">
-                        <button type="submit" class="btn btn-default center-block">Viajar</button>
+                    <div class="form-group col-xs-10 col-xs-offset-1">
+                        <input class="form-control input-xl" type="text" placeholder="origen" name="origen">
+                        <input class="form-control input-xl" type="text" placeholder="destino" name="destino">
+                        <button type="submit" class="btn btn-negative btn-xl center-block">VIAJAR</button>
                     </div>
                 </form>
             </div>
+        </div>
+
+        <div id="dondeestoy" class="container">
+            <p id="geolocation">Finding geolocation...</p>
         </div>
         <!--
         <script type="text/javascript" src="cordova.js"></script>
         -->
         <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/menu.js"></script>
         <script type="text/javascript">
