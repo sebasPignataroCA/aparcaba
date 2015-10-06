@@ -33,6 +33,10 @@ public class ConfigurationManager {
 		return getConfiguration().getComunes();
 	}
 
+	public String getApiUri() {
+		return getConfiguration().getApiUri();
+	}
+
 	public Configuration getConfiguration() {
 		if ( configuration == null ) {
 			configuration = getConfigurationsFromDB();
@@ -40,6 +44,7 @@ public class ConfigurationManager {
 		return configuration;
 	}
 
+	@SuppressWarnings("resource")
 	private Configuration getConfigurationsFromDB() {
 		ApplicationContext ctx = new AnnotationConfigApplicationContext( SpringMongoConfig.class );
 		MongoOperations mongoOperation = (MongoOperations) ctx.getBean( "mongoTemplate" );

@@ -25,6 +25,7 @@ public class ConfigTest {
 
 	private MongoOperations mongoOperation;
 
+	@SuppressWarnings("resource")
 	@Before
 	public void setUp() {
 		ApplicationContext ctx = new AnnotationConfigApplicationContext( SpringMongoConfig.class );

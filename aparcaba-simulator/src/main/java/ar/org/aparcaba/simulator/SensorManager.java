@@ -18,7 +18,7 @@ public class SensorManager {
 	}
 
 	public boolean isFree( Sensor sensor ) {
-		return takenSensors.contains( sensor );
+		return !takenSensors.contains( sensor );
 	}
 
 	public void take( Sensor sensor ) {

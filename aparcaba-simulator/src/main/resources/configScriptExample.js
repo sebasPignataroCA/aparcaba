@@ -1,7 +1,6 @@
 {
-    "_id": ObjectId("55b7fb4658a9b68c84737e56"),
-    "_class": "ar.org.aparcaba.simulator.value.Configuration",
     "cycleInterval": 10,
+    "apiUri": "http://localhost:5050/api-1.0/rest/admin/sensors/",
     "comunes": [
         {
             "firstSensorId": 1,
