@@ -69,4 +69,22 @@ public class CycleManager {
 		toRelease.get( releaseCycle ).add( sensor );
 	}
 
+	public void initializeSensorsStatusesFromApi() {
+		List<Sensor> apiSensors = sensorManager.callSensorsApi();
+		for ( Comune comune : config.getComunes() ) {
+			for ( int i = comune.getFirstSensorId() ; i <= comune.getLastSensorId() ; i++ ) {
+				initializeSensor( comune , comune.getSensor( i ) , apiSensors );
+			}
+		}
+	}
+
+	private void initializeSensor( Comune comune , Sensor sensor , List<Sensor> apiSensors ) {
+		if ( apiSensors.get( apiSensors.indexOf( sensor ) ).getCovered() ) {
+			int parkingStayTime = comune.getCurrentTimeLapse().getParkingStayTime()
+					- comune.getCurrentTimeLapse().getParkingStayTimeFrom();
+			setSensorToRelease( sensor , parkingStayTime );
+			sensorManager.setSensorAsTaken( sensor );
+		}
+	}
+
 }

@@ -1,11 +1,14 @@
 package ar.org.aparcaba.simulator;
 
+import java.util.List;
+
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 
 import ar.org.aparcaba.simulator.utils.ConfigurationManager;
 import ar.org.aparcaba.simulator.value.Sensor;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -55,4 +58,8 @@ public class AparcabaApiClient {
 		return this.service.resource( url );
 	}
 
+	public List<Sensor> getSensors() {
+		WebResource webResource = getService( config.getApiUri() );
+		return webResource.get( new GenericType<List<Sensor>>() {} );
+	}
 }

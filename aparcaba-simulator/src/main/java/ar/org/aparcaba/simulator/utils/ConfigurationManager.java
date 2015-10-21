@@ -59,6 +59,6 @@ public class ConfigurationManager {
 
 	public void setConfiguration( Configuration configuration ) {
 		this.configuration = configuration;
-	};
+	}
 
 }

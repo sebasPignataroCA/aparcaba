@@ -11,6 +11,8 @@ public class Simulador
 	{
 		ConfigurationManager config = ConfigurationManager.getInstance();
 
+		cycleManager.initializeSensorsStatusesFromApi();
+
 		while ( true ) {
 			try {
 				cycleManager.execute();

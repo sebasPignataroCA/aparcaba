@@ -1,6 +1,7 @@
 package ar.org.aparcaba.simulator;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import ar.org.aparcaba.simulator.value.Sensor;
@@ -23,6 +24,10 @@ public class SensorManager {
 
 	public void take( Sensor sensor ) {
 		apiClient.take( sensor );
+		setSensorAsTaken( sensor );
+	}
+
+	public void setSensorAsTaken( Sensor sensor ) {
 		takenSensors.add( sensor );
 	}
 
@@ -33,6 +38,10 @@ public class SensorManager {
 		return instance;
 	}
 
-	private SensorManager() {};
+	private SensorManager() {}
+
+	public List<Sensor> callSensorsApi() {
+		return apiClient.getSensors();
+	}
 
 }
