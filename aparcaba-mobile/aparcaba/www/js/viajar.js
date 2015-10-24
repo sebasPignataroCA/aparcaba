@@ -37,9 +37,6 @@ function onError(error) {
           'message: ' + error.message + '\n');
 }
 
-
-
-
 $(document).ready(function(){
 
   var origen = GetURLParameter('origen').replace("+", " ");
@@ -55,7 +52,7 @@ $(document).ready(function(){
 
   var coordenadas = [];
 
-  navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  //navigator.geolocation.getCurrentPosition(onSuccess, onError);
   
   $.ajax({ 
     type: "GET",
@@ -87,6 +84,7 @@ $(document).ready(function(){
         strokeWeight: 2
       });
 
+      initMap();
       camino.setMap(map);
     } 
      

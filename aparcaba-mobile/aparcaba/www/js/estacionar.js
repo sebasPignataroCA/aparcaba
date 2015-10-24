@@ -11,24 +11,35 @@ var GetURLParameter = function(sParam) {
 }
 
 var map;
-function initMap() {
+function initMap(center) {
   map = new google.maps.Map(document.getElementById('Gmap'), {
-    center: {lat: -34.6158238, lng: -58.4332985},
-    zoom: 12
+    center: center,
+    zoom: 16
   }); 
 }
 
+function onError() {
+  alert("error");
+}
 
-$(document).ready(function(){
-
-  var origen = GetURLParameter('origen').replace("+", " ");
-  var destino = GetURLParameter('destino').replace("+", " ");
-
+function onGeoSuccess(position){
   var CABA = "Ciudad de Buenos Aires";
-  var dominio = "http://api-aparcaba.rhcloud.com/rest/guidance"
-  var radio = "50"
+  var dominio = "http://api-aparcaba.rhcloud.com/rest/park";
 
-  var url = dominio + "/" + origen + "," + CABA + "/" +  destino + "," + CABA + "/" + radio;
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+
+  //var latitude = -34.5999907;
+  //var longitude = -58.4211427;
+  var center = {lat: latitude, lng: longitude};
+
+  if (window.localStorage.getItem('radius')){
+    var radio = window.localStorage.getItem('radius');
+  } else {
+    var radio = 300;
+  }
+
+  var url = dominio + "/" + latitude + "/" +  longitude + "/" + radio;
 
   var resultado;
   
@@ -40,11 +51,48 @@ $(document).ready(function(){
     crossDomain: true,
     contentType: "application/javascript; charset=utf-8",
     success: function(data){
-      console.log(data);
-    } 
-     
-  });
+      resultado = data;
 
-  initMap();
+      var sensors = resultado.sensors;
+
+      initMap(center);
+
+      var pinColor = "36cf5c";
+      var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+
+      $.each(sensors, function(){
+        var marker = new google.maps.Marker({
+          position: {lat: this.coordinates.latitude, lng: this.coordinates.longitude},
+          map: map,
+          title: 'Estacionar!',
+          icon: pinImage
+        });
+      })
+      
+      var cityCircle = new google.maps.Circle({
+        strokeColor: '#36cf5c',
+        strokeOpacity: 0.8,
+        strokeWeight: 5,
+        fillColor: '#FF0000',
+        fillOpacity: 0,
+        map: map,
+        center: center,
+        radius: radio
+      });
+
+
+    } 
+  });
+}
+
+
+$(document).ready(function(){
+
+  navigator.geolocation.getCurrentPosition(onGeoSuccess, onError);
+
+  //onGeoSuccess();
     
 });

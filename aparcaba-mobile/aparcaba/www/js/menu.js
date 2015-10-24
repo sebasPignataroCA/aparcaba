@@ -20,6 +20,22 @@ function onSuccess(position) {
                         'Heading: '            + position.coords.heading               + '<br />' +
                         'Speed: '              + position.coords.speed                 + '<br />' +
                         'Timestamp: '          + position.timestamp                    + '<br />';
+
+    var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&sensor=true"
+    
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: url,
+        success: function(data){
+          console.log(data)
+          var results = data.results;
+          var address_components = results[0].address_components;
+          var number = address_components[0].long_name;
+          var address = address_components[1].long_name;
+          $("#origen").val(address + " " + number);
+        }
+    })
 }
 
 // onError Callback receives a PositionError object

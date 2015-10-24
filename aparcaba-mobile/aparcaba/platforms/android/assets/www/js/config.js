@@ -26,6 +26,7 @@ function onDeviceReady() {
 
     $('form').submit(function(){
         window.localStorage.setItem('radius', $(this).find('input[name=destino]').val());
+        window.history.back();
     })
 }
 /*
