@@ -51,4 +51,8 @@ public class Comune {
 	public void setLastSensorId( int lastSensorId ) {
 		this.lastSensorId = lastSensorId;
 	}
+
+	public Sensor getSensor( int id ) {
+		return new Sensor( id );
+	}
 }

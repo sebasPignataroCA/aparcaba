@@ -14,6 +14,8 @@ public class Configuration {
 
 	private int cycleInterval;
 
+	private String apiUri;
+
 	private List<Comune> comunes = new ArrayList<Comune>();
 
 	public int getCycleInterval() {
@@ -30,6 +32,14 @@ public class Configuration {
 
 	public void setComunes( List<Comune> comunes ) {
 		this.comunes = comunes;
+	}
+
+	public String getApiUri() {
+		return apiUri;
+	}
+
+	public void setApiUri( String apiUri ) {
+		this.apiUri = apiUri;
 	}
 
 }

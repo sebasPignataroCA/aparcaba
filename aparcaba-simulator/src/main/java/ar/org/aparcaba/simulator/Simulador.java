@@ -11,10 +11,12 @@ public class Simulador
 	{
 		ConfigurationManager config = ConfigurationManager.getInstance();
 
+		cycleManager.initializeSensorsStatusesFromApi();
+
 		while ( true ) {
 			try {
 				cycleManager.execute();
-				Thread.sleep( config.getCycleInterval() );
+				Thread.sleep( config.getCycleInterval() * 1000 );
 			} catch ( Throwable e ) {
 				e.printStackTrace();
 			}
