@@ -1,0 +1,14 @@
+#eta-container {
+  position: absolute;
+  top: 110px;
+  right: 20px;
+  background-color: white;
+  z-index: 10;
+  font-size: 20px;
+  font-weight: 700;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+
+  display: none;
+}

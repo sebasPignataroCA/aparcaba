@@ -26,11 +26,11 @@ function onGeoSuccess(position){
   var CABA = "Ciudad de Buenos Aires";
   var dominio = "http://api-aparcaba.rhcloud.com/rest/park";
 
-  var latitude = position.coords.latitude;
-  var longitude = position.coords.longitude;
+  //var latitude = position.coords.latitude;
+  //var longitude = position.coords.longitude;
 
-  //var latitude = -34.5999907;
-  //var longitude = -58.4211427;
+  var latitude = -34.5999907;
+  var longitude = -58.4211427;
   var center = {lat: latitude, lng: longitude};
 
   if (window.localStorage.getItem('radius')){
@@ -70,6 +70,27 @@ function onGeoSuccess(position){
           title: 'Estacionar!',
           icon: pinImage
         });
+
+        var address = this.friendlyAddress.split(',');
+
+        marker.addListener('click', function(){
+          var text = address[0];
+          text = encodeURIComponent(text);
+          console.log(text)
+          var translateURL = "https://translate.google.com/translate_tts?ie=utf-8&q="+text+"&tl=es"
+          $('audio').attr('src', translateURL).get(0).play();
+        })
+      })
+
+      console.log(resultado)
+
+      $("#eta").text(resultado.eta + " mins");
+      $("#eta-container").show();
+
+      var currentLocation = new google.maps.Marker({
+        position: {lat: center.lat, lng: center.lng},
+        map: map,
+        icon: "img/car-marker.png"
       })
       
       var cityCircle = new google.maps.Circle({
@@ -94,5 +115,26 @@ $(document).ready(function(){
   navigator.geolocation.getCurrentPosition(onGeoSuccess, onError);
 
   //onGeoSuccess();
+
+  navigator.tts.startup(startupWin, fail);
     
 });
+
+function startupWin(result) {
+    alert("Startup win");
+    // When result is equal to STARTED we are ready to play
+    alert("Result "+result);
+    //TTS.STARTED==2 use this once so is answered
+    if (result == 2) {
+        navigator.tts.getLanguage(win, fail);
+        navigator.tts.speak("The text to speech service is ready");                                     
+    }
+}                               
+
+function win(result) {
+    alert(result);
+}
+
+function fail(result) {
+    alert("Error = " + result);
+}

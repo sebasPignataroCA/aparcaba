@@ -12,10 +12,10 @@ var GetURLParameter = function(sParam) {
 }
 
 var map;
-function initMap() {
+function initMap(center) {
   map = new google.maps.Map(document.getElementById('Gmap'), {
-    center: {lat: -34.6158238, lng: -58.4332985},
-    zoom: 12
+    center: {lat: center.latitude, lng: center.longitude},
+    zoom: 16
   });  
 }
 
@@ -35,6 +35,60 @@ var onSuccess = function(position) {
 function onError(error) {
     alert('code: '    + error.code    + '\n' +
           'message: ' + error.message + '\n');
+}
+
+function estacionar(destino, duracionViaje) {
+  var CABA = "Ciudad de Buenos Aires";
+  var dominio = "http://api-aparcaba.rhcloud.com/rest/park";
+
+  
+  var latitude = destino.lat;
+  var longitude = destino.lng;
+  var center = {lat: latitude, lng: longitude};
+
+  if (window.localStorage.getItem('radius')){
+    var radio = window.localStorage.getItem('radius');
+  } else {
+    var radio = 300;
+  }
+
+  var url = dominio + "/" + latitude + "/" +  longitude + "/" + radio;
+
+  var resultado;
+
+  $.ajax({ 
+    type: "GET",
+    dataType: "json",
+    url: url,
+       
+    crossDomain: true,
+    contentType: "application/javascript; charset=utf-8",
+    success: function(data){
+      resultado = data;
+      var sensors = resultado.sensors;
+
+      var pinColor = "36cf5c";
+      var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+
+      $.each(sensors, function(){
+        var marker = new google.maps.Marker({
+          position: {lat: this.coordinates.latitude, lng: this.coordinates.longitude},
+          map: map,
+          title: 'Estacionar!',
+          icon: pinImage
+        });
+      });
+
+      var tiempoTotal = duracionViaje + data.eta;
+
+      $("#eta").text(tiempoTotal + " mins");
+      $("#eta-container").show();
+
+    }
+  });
 }
 
 $(document).ready(function(){
@@ -62,7 +116,13 @@ $(document).ready(function(){
     crossDomain: true,
     contentType: "application/javascript; charset=utf-8",
     success: function(data){
-      console.log(data);
+
+      var duracionViaje = Math.trunc(data.totalDuration / 60);
+
+      var center = {
+        latitude: data.steps[0].originCoordinates.latitude,
+        longitude: data.steps[0].originCoordinates.longitude,
+      }
 
       coordenadas.push({
         lat: data.steps[0].originCoordinates.latitude,
@@ -84,8 +144,21 @@ $(document).ready(function(){
         strokeWeight: 2
       });
 
-      initMap();
+      initMap(center);
       camino.setMap(map);
+
+      var marker1 = new google.maps.Marker({
+          position: {lat: coordenadas[0].lat, lng: coordenadas[0].lng},
+          map: map,
+          title: 'Origen'
+        });
+      var marker2 = new google.maps.Marker({
+          position: {lat: coordenadas[coordenadas.length-1].lat, lng: coordenadas[coordenadas.length-1].lng},
+          map: map,
+          title: 'Destino'
+        });
+
+      estacionar(coordenadas[coordenadas.length-1], duracionViaje);
     } 
      
   });
