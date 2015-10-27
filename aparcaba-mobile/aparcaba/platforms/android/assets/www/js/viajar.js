@@ -12,10 +12,10 @@ var GetURLParameter = function(sParam) {
 }
 
 var map;
-function initMap() {
+function initMap(center) {
   map = new google.maps.Map(document.getElementById('Gmap'), {
-    center: {lat: -34.6158238, lng: -58.4332985},
-    zoom: 12
+    center: {lat: center.latitude, lng: center.longitude},
+    zoom: 16
   });  
 }
 
@@ -37,7 +37,7 @@ function onError(error) {
           'message: ' + error.message + '\n');
 }
 
-function estacionar(destino) {
+function estacionar(destino, duracionViaje) {
   var CABA = "Ciudad de Buenos Aires";
   var dominio = "http://api-aparcaba.rhcloud.com/rest/park";
 
@@ -82,6 +82,11 @@ function estacionar(destino) {
         });
       });
 
+      var tiempoTotal = duracionViaje + data.eta;
+
+      $("#eta").text(tiempoTotal + " mins");
+      $("#eta-container").show();
+
     }
   });
 }
@@ -112,6 +117,13 @@ $(document).ready(function(){
     contentType: "application/javascript; charset=utf-8",
     success: function(data){
 
+      var duracionViaje = Math.trunc(data.totalDuration / 60);
+
+      var center = {
+        latitude: data.steps[0].originCoordinates.latitude,
+        longitude: data.steps[0].originCoordinates.longitude,
+      }
+
       coordenadas.push({
         lat: data.steps[0].originCoordinates.latitude,
         lng: data.steps[0].originCoordinates.longitude
@@ -132,7 +144,7 @@ $(document).ready(function(){
         strokeWeight: 2
       });
 
-      initMap();
+      initMap(center);
       camino.setMap(map);
 
       var marker1 = new google.maps.Marker({
@@ -146,7 +158,7 @@ $(document).ready(function(){
           title: 'Destino'
         });
 
-      estacionar(coordenadas[coordenadas.length-1]);
+      estacionar(coordenadas[coordenadas.length-1], duracionViaje);
     } 
      
   });

@@ -116,25 +116,8 @@ $(document).ready(function(){
 
   //onGeoSuccess();
 
-  navigator.tts.startup(startupWin, fail);
+  //navigator.tts.startup(startupWin, fail);
+
+  texttospeech.speak('i am a little teapot'
     
 });
-
-function startupWin(result) {
-    alert("Startup win");
-    // When result is equal to STARTED we are ready to play
-    alert("Result "+result);
-    //TTS.STARTED==2 use this once so is answered
-    if (result == 2) {
-        navigator.tts.getLanguage(win, fail);
-        navigator.tts.speak("The text to speech service is ready");                                     
-    }
-}                               
-
-function win(result) {
-    alert(result);
-}
-
-function fail(result) {
-    alert("Error = " + result);
-}

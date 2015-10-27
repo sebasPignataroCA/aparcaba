@@ -6,10 +6,10 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/org.apache.cordova.plugin.tts/www/tts.js",
-        "id": "org.apache.cordova.plugin.tts.tts",
+        "file": "plugins/au.id.currie.tts/www/tts.js",
+        "id": "au.id.currie.tts.TextToSpeech",
         "clobbers": [
-            "navigator.tts"
+            "window.texttospeech"
         ]
     }
 ];
@@ -18,7 +18,7 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.0.0",
     "org.apache.cordova.geolocation": "0.3.12",
-    "org.apache.cordova.plugin.tts": "0.2.1"
+    "au.id.currie.tts": "0.0.1"
 }
 // BOTTOM OF METADATA
 });

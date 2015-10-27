@@ -5,8 +5,9 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="TTS">
-        <param name="android-package" value="org.apache.cordova.plugin.TTS" />
+    <feature name="TextToSpeech">
+        <param name="android-package" value="au.id.currie.tts.TextToSpeechPlugin" />
+        <param name="onload" value="true" />
     </feature>
     <allow-intent href="market:*" />
     <name>aparcaba</name>
