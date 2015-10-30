@@ -54,6 +54,8 @@ function estacionar(destino, duracionViaje) {
 
   var url = dominio + "/" + latitude + "/" +  longitude + "/" + radio;
 
+  console.log(url)
+
   var resultado;
 
   $.ajax({ 
@@ -98,9 +100,15 @@ $(document).ready(function(){
 
   var CABA = "Ciudad de Buenos Aires";
   var dominio = "http://api-aparcaba.rhcloud.com/rest/guidance"
-  var radio = "50"
+  if (window.localStorage.getItem('radius')){
+    var radio = window.localStorage.getItem('radius');
+  } else {
+    var radio = 300;
+  }
 
   var url = dominio + "/" + origen + "," + CABA + "/" +  destino + "," + CABA + "/" + radio;
+
+  console.log(url)
 
   var resultado;
 

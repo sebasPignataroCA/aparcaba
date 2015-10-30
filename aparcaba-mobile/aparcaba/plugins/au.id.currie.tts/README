@@ -1,4 +1,0 @@
-Cordova plugin to expose an Android TextToSpeech instance.
-For example:
-
-texttospeech.speak('i am a little teapot')

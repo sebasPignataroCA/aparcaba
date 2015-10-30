@@ -36,12 +36,14 @@ function onGeoSuccess(position){
   if (window.localStorage.getItem('radius')){
     var radio = window.localStorage.getItem('radius');
   } else {
-    var radio = 300;
+    var radio = 200;
   }
 
   var url = dominio + "/" + latitude + "/" +  longitude + "/" + radio;
 
   var resultado;
+
+  console.log(url);
   
   $.ajax({ 
     type: "GET",
@@ -112,12 +114,8 @@ function onGeoSuccess(position){
 
 $(document).ready(function(){
 
-  navigator.geolocation.getCurrentPosition(onGeoSuccess, onError);
+  //navigator.geolocation.getCurrentPosition(onGeoSuccess, onError);
 
-  //onGeoSuccess();
-
-  //navigator.tts.startup(startupWin, fail);
-
-  texttospeech.speak('i am a little teapot'
+  onGeoSuccess();
     
 });

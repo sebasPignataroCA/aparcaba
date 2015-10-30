@@ -1,0 +1,15 @@
+h2#titulo {
+  font-size: 5em;
+}
+#borrar .glyphicon-remove:before {
+  color: red;
+}
+#borrar span {
+  border-color: red;
+}
+#viajar .glyphicon-road:before {
+  color: green;
+}
+#viajar span {
+  border-color: green;
+}

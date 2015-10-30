@@ -18,6 +18,9 @@
                       <a class="navbar-brand" href="opciones.html">APARCABA</a>
                     </div>
                     <div class="navbar-nav navbar-right">
+                        <a href="favoritos.html">
+                            <span id="config-icon" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        </a>
                         <a href="config.html">
                             <span id="config-icon" class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
                         </a>
@@ -32,16 +35,19 @@
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input id="origen" class="form-control input-xl" type="text" placeholder="origen" name="origen">
                         <input id="destino" class="form-control input-xl" type="text" placeholder="destino" name="destino">
+                        <a href="#" id="favorito">
+                            <span id="fav-icon" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        </a>
                         <button type="submit" class="btn btn-negative btn-xl center-block">VIAJAR</button>
                     </div>
                 </form>
             </div>
         </div>
 
+        <!--
         <div id="dondeestoy" class="container">
             <p id="geolocation">Finding geolocation...</p>
         </div>
-        <!--
         <script type="text/javascript" src="cordova.js"></script>
         -->
         <script type="text/javascript" src="js/jquery.js"></script>
