@@ -1,0 +1,20 @@
+h1 {
+  font-size: 5em;
+  font-weight: 700;
+  padding-top: 50px;
+}
+p {
+  text-align: center;
+  font-size: 3em;
+  padding-top: 150px;
+}
+#continuar {
+  padding-top: 100px;
+}
+.btn-xl {
+      padding: 14px 24px;
+    font-size: 5em;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    margin-top: 50px;
+}

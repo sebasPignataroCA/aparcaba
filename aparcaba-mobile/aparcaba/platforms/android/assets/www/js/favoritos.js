@@ -14,6 +14,22 @@ function viajar(){
   window.location.replace("viajar.html?origen="+origen+"&destino="+destino);
 }
 
+function borrar(event) {
+
+  var id = $(event.currentTarget).parent().attr('favId');
+
+  var favoritos = JSON.parse(window.localStorage.getItem('favoritos'));
+
+  var filtrados = favoritos.filter(function(elem){
+    return elem.id != id;
+  });
+
+  window.localStorage.setItem('favoritos', JSON.stringify(filtrados));
+
+  $("[favId="+id+"]").remove();
+
+}
+
 function agregaFavoritos() {
   var closeDiv = '</div>';
   var roadButton = '<a class="btn viajar" id="viajar"><span id="config-icon" class="glyphicon glyphicon-road" aria-hidden="true"></span></a>';
@@ -22,10 +38,7 @@ function agregaFavoritos() {
   if (window.localStorage.getItem('favoritos')){
     var favoritos = JSON.parse(window.localStorage.getItem('favoritos'));
   } else {
-    var favoritos = [
-      {id:1, text: "Medrano 1000"},
-      {id:2, text: "Medrano 233"}
-    ];
+    var favoritos = [];
   }
 
   /*var favoritos = [
@@ -41,6 +54,7 @@ function agregaFavoritos() {
     $("form").append(html);
 
     $(document).on('click', "[favId="+this.id+"] .viajar", viajar);
+    $(document).on('click', "[favId="+this.id+"] .borrar", borrar);
   })
 }
 

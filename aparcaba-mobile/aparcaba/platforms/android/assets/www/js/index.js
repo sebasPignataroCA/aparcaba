@@ -50,7 +50,6 @@ var app = {
 
 $(document).ready(function(){
 
-    $("#ingresar").click(function(){
-    });
+    
 
 });
