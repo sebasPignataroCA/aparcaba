@@ -10,11 +10,14 @@ function onSuccess(position) {
         url: url,
         success: function(data){
           console.log(data)
-          var results = data.results;
-          var address_components = results[0].address_components;
-          var number = address_components[0].long_name;
-          var address = address_components[1].long_name;
-          $("#origen").val(address + " " + number);
+
+          if (data.error_message === 'undefined') {
+            var results = data.results;
+            var address_components = results[0].address_components;
+            var number = address_components[0].long_name;
+            var address = address_components[1].long_name;
+            $("#origen").val(address + " " + number);
+          }
         }
     });
 }
