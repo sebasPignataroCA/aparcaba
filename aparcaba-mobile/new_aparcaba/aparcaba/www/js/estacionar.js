@@ -26,15 +26,15 @@ function onGeoSuccess(position){
   var CABA = "Ciudad de Buenos Aires";
   var dominio = "http://api-aparcaba.rhcloud.com/rest/park";
 
-  var latitude = position.coords.latitude;
-  var longitude = position.coords.longitude;
+  //var latitude = position.coords.latitude;
+  //var longitude = position.coords.longitude;
 
-  //var latitude = -34.5999907;
-  //var longitude = -58.4211427;
+  var latitude = -34.6028;
+  var longitude = -58.417968;
   var center = {lat: latitude, lng: longitude};
 
   if (window.localStorage.getItem('radius')){
-    var radio = window.localStorage.getItem('radius');
+    var radio = parseInt(window.localStorage.getItem('radius'));
   } else {
     var radio = 200;
   }
@@ -42,6 +42,7 @@ function onGeoSuccess(position){
   var url = dominio + "/" + latitude + "/" +  longitude + "/" + radio;
 
   var resultado;
+  var textoParaDecir = "";
 
   console.log(url);
 
@@ -74,6 +75,7 @@ function onGeoSuccess(position){
         });
 
         var address = this.friendlyAddress.split(',');
+        textoParaDecir += address[0] + ", ";
 
         marker.addListener('click', function(){
           var text = address[0];
@@ -84,7 +86,18 @@ function onGeoSuccess(position){
         })
       })
 
-      console.log(resultado)
+      console.log(resultado);
+
+      TTS
+        .speak({
+            text: textoParaDecir,
+            locale: 'es-ES',
+            rate: 0.75
+        }, function () {
+            //alert('success');
+        }, function (reason) {
+            alert(reason);
+        });
 
       $("#eta").text(resultado.eta + " mins");
       $("#eta-container").show();
