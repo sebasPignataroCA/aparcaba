@@ -1,28 +1,9 @@
-// Wait for device API libraries to load
-//
-document.addEventListener("deviceready", onDeviceReady, false);
 
-// device APIs are available
-//
-function onDeviceReady() {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
-}
-
-// onSuccess Geolocation
-//
 function onSuccess(position) {
     var element = document.getElementById('geolocation');
-    /*element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
-                        'Longitude: '          + position.coords.longitude             + '<br />' +
-                        'Altitude: '           + position.coords.altitude              + '<br />' +
-                        'Accuracy: '           + position.coords.accuracy              + '<br />' +
-                        'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-                        'Heading: '            + position.coords.heading               + '<br />' +
-                        'Speed: '              + position.coords.speed                 + '<br />' +
-                        'Timestamp: '          + position.timestamp                    + '<br />';
-    */
+
     var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&sensor=true"
-    
+
     $.ajax({
         type: "GET",
         dataType: "json",
@@ -35,7 +16,7 @@ function onSuccess(position) {
           var address = address_components[1].long_name;
           $("#origen").val(address + " " + number);
         }
-    })
+    });
 }
 
 // onError Callback receives a PositionError object
@@ -47,16 +28,7 @@ function onError(error) {
 $(document).ready(function(){
   navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
-  document.addEventListener("deviceready", onDeviceReady, false);
-
-
-
-
 });
-
-function onDeviceReady() {
-    window.plugins.tts.startup(startupWin, fail);   
-}
 
 $("#favorito").click(function(e){
     e.preventDefault();
@@ -85,7 +57,7 @@ $("#favorito").click(function(e){
 
       window.localStorage.setItem('favoritos', JSON.stringify(favoritos));
 
-      alert(value.text + ", agregado a favoritos");      
+      alert(value.text + ", agregado a favoritos");
     }
 
   });

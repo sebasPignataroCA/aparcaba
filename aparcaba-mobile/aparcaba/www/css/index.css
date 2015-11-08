@@ -28,7 +28,7 @@ body {
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:#8eb5d5;
-    background-image:linear-gradient(top, #8eb5d5 0%, #7e9db7 51%);
+    /*background-image:linear-gradient(top, #8eb5d5 0%, #7e9db7 51%);
     background-image:-webkit-linear-gradient(top, #8eb5d5 0%, #7e9db7 51%);
     background-image:-ms-linear-gradient(top, #8eb5d5 0%, #7e9db7 51%);
     background-image:-webkit-gradient(
@@ -38,7 +38,7 @@ body {
         color-stop(0, #8eb5d5),
         color-stop(0.51, #7e9db7)
     );
-    background-attachment:fixed;
+    background-attachment:fixed;*/
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:100%;
@@ -105,13 +105,13 @@ h1 {
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
- 
+
 @-webkit-keyframes fade {
     from { opacity: 1.0; }
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
- 
+
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
@@ -175,7 +175,7 @@ button.btn:hover, a.btn:hover {
 
 #viajar-link {
     margin: 200px 0;
-} 
+}
 
 .map-container {
     width: 100%

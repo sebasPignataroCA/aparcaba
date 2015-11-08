@@ -15,7 +15,7 @@ function initMap(center) {
   map = new google.maps.Map(document.getElementById('Gmap'), {
     center: center,
     zoom: 16
-  }); 
+  });
 }
 
 function onError() {
@@ -26,11 +26,11 @@ function onGeoSuccess(position){
   var CABA = "Ciudad de Buenos Aires";
   var dominio = "http://api-aparcaba.rhcloud.com/rest/park";
 
-  //var latitude = position.coords.latitude;
-  //var longitude = position.coords.longitude;
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
 
-  var latitude = -34.5999907;
-  var longitude = -58.4211427;
+  //var latitude = -34.5999907;
+  //var longitude = -58.4211427;
   var center = {lat: latitude, lng: longitude};
 
   if (window.localStorage.getItem('radius')){
@@ -44,12 +44,12 @@ function onGeoSuccess(position){
   var resultado;
 
   console.log(url);
-  
-  $.ajax({ 
+
+  $.ajax({
     type: "GET",
     dataType: "json",
     url: url,
-       
+
     crossDomain: true,
     contentType: "application/javascript; charset=utf-8",
     success: function(data){
@@ -94,7 +94,7 @@ function onGeoSuccess(position){
         map: map,
         icon: "img/car-marker.png"
       })
-      
+
       var cityCircle = new google.maps.Circle({
         strokeColor: '#36cf5c',
         strokeOpacity: 0.8,
@@ -107,15 +107,15 @@ function onGeoSuccess(position){
       });
 
 
-    } 
+    }
   });
 }
 
 
 $(document).ready(function(){
 
-  //navigator.geolocation.getCurrentPosition(onGeoSuccess, onError);
+  navigator.geolocation.getCurrentPosition(onGeoSuccess, onError);
 
-  onGeoSuccess();
-    
+  //onGeoSuccess();
+
 });
