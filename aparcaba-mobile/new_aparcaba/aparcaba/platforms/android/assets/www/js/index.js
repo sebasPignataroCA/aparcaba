@@ -65,9 +65,7 @@ var app = {
         alert(error);
     },
 
-    initializeGeo: function(){
-      navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
-
+    greet: function(){
       TTS
           .speak({
             text: "Hola Mundo !",
@@ -77,7 +75,10 @@ var app = {
           }, function (reason) {
               alert(reason);
           });
+    },
 
+    initializeGeo: function(){
+      navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
     }
 
 };
