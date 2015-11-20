@@ -1,5 +1,5 @@
 h2#titulo {
-  font-size: 5em;
+  font-size: 30px;
 }
 #borrar .glyphicon-remove:before {
   color: red;

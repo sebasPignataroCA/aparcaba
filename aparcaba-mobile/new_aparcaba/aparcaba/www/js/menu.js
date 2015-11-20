@@ -60,7 +60,7 @@ $("#favorito").click(function(e){
 
       window.localStorage.setItem('favoritos', JSON.stringify(favoritos));
 
-      alert(value.text + ", agregado a favoritos");
+      navigator.notification.alert(value.text + ", agregado a favoritos", null, "Aviso", null);
     }
 
   });
